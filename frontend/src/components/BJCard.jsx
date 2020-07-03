@@ -1,16 +1,18 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+
+import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: 275,
-        minHeight: 350,
-    },
-    title: {
-        fontSize: 14,
+        minWidth: 250,
+        minHeight: 250,
+        maxWidth: 250,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        fontSize: "3em",
+        margin: "0.25em 1em"
     },
 });
 
@@ -18,12 +20,8 @@ export default function BJCard({singleCard}) {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root}>
-            <CardContent>
-                <Typography className={classes.title}>
+        <Paper className={classes.root}>
                     {singleCard.num}
-                </Typography>
-            </CardContent>
-        </Card>
+        </Paper>
     );
 }

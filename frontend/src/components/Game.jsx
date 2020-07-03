@@ -1,27 +1,18 @@
-import React, {useEffect, useState} from "react";
-import BJCard from "./BJCard";
-import {makeStyles} from "@material-ui/core/styles";
-import Grid from '@material-ui/core/Grid';
+import React, {useEffect,useState} from "react";
 import {fetchCards} from "../utils/api";
 import {getRandomCard} from "../utils/cardUtils";
 import Button from "@material-ui/core/Button";
+import NetworkState from "./NetworkState";
+import CardStack from "./CardStack";
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        height: "100vh",
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }
-}));
 
 export default function Game() {
-    const classes = useStyles();
 
-    const [cards, setCards] = useState([])
-    const [currentCard, setCurrentCard] = useState(null)
+
+    const [allCards, setAllCards] = useState([])
+    const [cardStack, setCardStack] = useState([])
+
     const [networkState, setNetworkState] = useState("IDLE")
 
 
@@ -32,7 +23,7 @@ export default function Game() {
                 const newCards = response.map(card => {
                     return {...card}
                 })
-                setCards(newCards)
+                setAllCards(newCards)
                 setNetworkState("SUCCESS")
             }
             else {
@@ -41,30 +32,19 @@ export default function Game() {
         }).catch(()=> setNetworkState("ERROR"))
     },[])
 
-    function renderCurrentCard() {
-        const singleCard = getRandomCard(cards)
-        setCurrentCard(singleCard)
+    function addCardOnStack() {
+        const singleCard = getRandomCard(allCards)
+        let newCardStack = cardStack.concat(singleCard)
+        setCardStack(newCardStack)
     }
-
-
-
-
     return (
 
-        <div className={classes.root}>
-
-            {networkState === "LOADING" && <h3>Loading...</h3>}
-
-            {networkState === "ERROR" && <h3>Error</h3>}
-
-            <Grid container>
-
-                <Button onClick={renderCurrentCard}>Get a Card</Button>
-
-                {currentCard && <BJCard singleCard={currentCard}/> }
-
-            </Grid>
-
+        <div style={{
+            textAlign:'center', // this does the magic
+        }}>
+            <NetworkState networkState={networkState}/>
+            <Button style={{minHeight: 75, minWidth: 75, marginTop: "0.5em"}} variant="contained" color="secondary" onClick={addCardOnStack}>Get a Card</Button>
+            <CardStack cardStack={cardStack}/>
         </div>
     )
 }
