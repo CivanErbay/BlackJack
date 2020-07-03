@@ -14,14 +14,14 @@ const useStyles = makeStyles({
     },
 });
 
-export default function BJCard({card}) {
+export default function BJCard({singleCard}) {
     const classes = useStyles();
 
     return (
         <Card className={classes.root}>
             <CardContent>
                 <Typography className={classes.title}>
-                    {card.num}
+                    {singleCard.num}
                 </Typography>
             </CardContent>
         </Card>

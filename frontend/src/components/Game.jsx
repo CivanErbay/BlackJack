@@ -3,6 +3,8 @@ import BJCard from "./BJCard";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 import {fetchCards} from "../utils/api";
+import {getRandomCard} from "../utils/cardUtils";
+import Button from "@material-ui/core/Button";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -12,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: "80%"
     }
 }));
 
@@ -20,23 +21,33 @@ export default function Game() {
     const classes = useStyles();
 
     const [cards, setCards] = useState([])
+    const [currentCard, setCurrentCard] = useState(null)
     const [networkState, setNetworkState] = useState("IDLE")
+
 
     useEffect(() => {
         setNetworkState("LOADING")
         fetchCards().then(response => {
             if (response) {
-                const cards = response.map(card => {
+                const newCards = response.map(card => {
                     return {...card}
                 })
-                setCards(cards)
+                setCards(newCards)
                 setNetworkState("SUCCESS")
             }
             else {
                 setNetworkState("ERROR")
             }
-        })
+        }).catch(()=> setNetworkState("ERROR"))
     },[])
+
+    function renderCurrentCard() {
+        const singleCard = getRandomCard(cards)
+        setCurrentCard(singleCard)
+    }
+
+
+
 
     return (
 
@@ -46,7 +57,13 @@ export default function Game() {
 
             {networkState === "ERROR" && <h3>Error</h3>}
 
-            {networkState === "SUCCESS" &&  <Grid container> {cards.map(singleCard => <Grid item xs><BJCard singleCard={singleCard}/> </Grid>)}  </Grid>}
+            <Grid container>
+
+                <Button onClick={renderCurrentCard}>Get a Card</Button>
+
+                {currentCard && <BJCard singleCard={currentCard}/> }
+
+            </Grid>
 
         </div>
     )

@@ -1,6 +1,5 @@
-import React from "react"
 
-export async function fetchCards() {
-    const response = fetch("/api/game/")
+export const fetchCards = async() => {
+    const response = await fetch("/api/game/")
     return await response.json();
 }

@@ -5,6 +5,7 @@ import de.civan.blackjackbackend.model.Card;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BJService {
@@ -15,8 +16,8 @@ public class BJService {
         this.bjMongoDb = bjMongoDb;
     }
 
-    public ArrayList<Card> getAllCards() {
-        return (ArrayList<Card>)bjMongoDb.findAll();
+    public List<Card> getAllCards() {
+        return (List<Card>)bjMongoDb.findAll();
     }
 
 }
