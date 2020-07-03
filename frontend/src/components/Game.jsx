@@ -1,7 +1,7 @@
 import React, {useEffect,useState} from "react";
 import {fetchCards} from "../utils/api";
 import NetworkState from "./NetworkState";
-import PlayerOne from "./PlayerOne";
+import Player from "./Player";
 
 
 
@@ -10,6 +10,7 @@ export default function Game() {
 
     const [allCards, setAllCards] = useState([])
     const [networkState, setNetworkState] = useState("IDLE")
+
     useEffect(() => {
         setNetworkState("LOADING")
         fetchCards().then(response => {
@@ -32,8 +33,9 @@ export default function Game() {
             textAlign:'center', // this does the magic
         }}>
             <NetworkState networkState={networkState}/>
-            <PlayerOne allCards={allCards}/>
-            <PlayerOne allCards={allCards}/>
+            <Player allCards={allCards}/>
+            <hr/>
+            <Player allCards={allCards}/>
 
         </div>
     )

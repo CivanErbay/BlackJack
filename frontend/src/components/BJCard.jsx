@@ -5,14 +5,14 @@ import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles({
     root: {
-        minWidth: 250,
-        minHeight: 250,
-        maxWidth: 250,
+        minWidth: 100,
+        minHeight: 100,
+        maxWidth: 100,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         fontSize: "3em",
-        margin: "0.25em 1em"
+        margin: "1em"
     },
 });
 

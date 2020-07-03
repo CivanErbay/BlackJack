@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        height: '50vh',
+        height: '20vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -16,6 +16,15 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center"
+    },
+    position: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column"
+    },
+    message: {
+        fontSize: "2em"
     }
 }));
 
@@ -38,20 +47,22 @@ export default function CardStack({addCardOnStack,cardStack, restartDeck}) {
     }
 
     return (
-        <>
-            {numberState <= 21 && <Button style={{minHeight: 75, minWidth: 75, marginTop: "0.5em"}} variant="contained" color="secondary"
+
+        <div className={classes.position}>
+
+        {numberState < 21 && <Button style={{minHeight: 75, minWidth: 75, marginTop: "0.5em"}} variant="contained" color="secondary"
                    onClick={addCardOnStack}>Get a Card</Button>}
-            {numberState > 21 && <Button style={{minHeight: 75, minWidth: 75, marginTop: "0.5em"}} variant="contained" color="secondary"
+            {numberState >= 21 && <Button style={{minHeight: 75, minWidth: 75, marginTop: "0.5em"}} variant="contained" color="secondary"
                                          onClick={restartGame}>Restart</Button> }
 
-            <Grid container wrap className={classes.root}>
+            <Grid container className={classes.root}>
                 {cardStack.map(singleCard => <Grid className={classes.item} item sm> <BJCard singleCard={singleCard}/>
                 </Grid>)}
-                {numberState === 21 && <h2>BLACKJACK!!!</h2>}
-                {numberState > 21 && <h2>GAME OVER</h2>}
-
             </Grid>
-        </>
+            {numberState === 21 && <h3 className={classes.message}>BLACKJACK!!!</h3>}
+            {numberState > 21 && <h3 className={classes.message}>GAME OVER</h3>}
+        </div>
+
     )
 
 }
