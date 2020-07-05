@@ -28,21 +28,20 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function CardStack({addCardOnStack,cardStack, restartDeck}) {
+export default function CardStack({addCardOnStack,gameState,setGameState, restartDeck}) {
     const classes = useStyles();
 
-    const [numberState, setNumberState] = useState(0)
+/*    const [numberState, setNumberState] = useState(0)*/
 
     useEffect(() => {
         let counter = 0
-        for (let i = 0; i < cardStack.length; i++) {
-            counter = counter + cardStack[i].num
+        for (let i = 0; i < gameState.cards.length; i++) {
+            counter = counter + gameState.cards[i].num
         }
-        setNumberState(counter);
-    }, [cardStack])
+      /*  setGameState([...gameState, ]);*/ //CONTINUE HERE WITH SETGAMESTATE add Points (depending on which Player)
+    }, [gameState.cards])
 
     function restartGame (){
-        setNumberState(0);
         restartDeck()
     }
 
