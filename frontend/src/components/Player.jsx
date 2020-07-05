@@ -8,6 +8,8 @@ export default function Player({allCards}) {
 
     function addCardOnStack() {
         const singleCard = getRandomCard(allCards)
+        const spliceIndex = parseInt(singleCard.id)
+        allCards.splice(spliceIndex,1);
         let newCardStack = cardStack.concat(singleCard)
         setCardStack(newCardStack)
     }
